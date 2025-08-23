@@ -91,7 +91,7 @@ app.get("/test-db", ( res) => {
   });
 });
 
-app.get("/test-openai", async ( res) => {
+app.get("/test-openai", async (_req, res) => {
   try {
     const response = await openai.chat.completions.create({
       model: "gpt-4.1-mini",
@@ -101,7 +101,7 @@ app.get("/test-openai", async ( res) => {
     res.json({ reply: response.choices[0].message.content });
   } catch (error) {
     console.error("OpenAI error:", error);
-    res.status(500).json({ error: "OpenAI request failed" });
+    res.status(500).json({ error: "OpenAI request failed", details: error.message });
   }
 });
 
