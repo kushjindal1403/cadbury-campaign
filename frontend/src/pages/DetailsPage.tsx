@@ -6,7 +6,6 @@ import bottomLeftImage from "./../assets/UI Images/Purple tone.png";
 import sideLeftImage from "./../assets/UI Images/Asset 1.png";
 import sideRightImage from "./../assets/UI Images/Balloon.png";
 
-// import all styles
 import {
     containerStyle,
     progressStyle,

@@ -26,7 +26,6 @@ const PlayPage = () => {
         const loadVoices = () => {
             const synthVoices = window.speechSynthesis.getVoices();
 
-            // Pick voice based on singerVoice preference
             const voice = synthVoices.find((voice) => {
                 const name = voice.name.toLowerCase();
                 if (singerVoice.toLowerCase() === "female") {
@@ -46,7 +45,7 @@ const PlayPage = () => {
                         name.includes("mann")
                     );
                 }
-            }) || synthVoices[0]; // fallback to first voice
+            }) || synthVoices[0]; 
 
             setSelectedVoice(voice);
         };

@@ -73,7 +73,6 @@ const SelectionPage = () => {
 
             localStorage.setItem("generatedLyrics", lyrics);
 
-            // Pass selected singer voice (optional) to PlayPage
             navigate("/play", { state: { lyrics, singerVoice: selectedOptions["Singer's Voice"] || "Male" } });
 
         } catch (err) {

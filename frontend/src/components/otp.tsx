@@ -12,7 +12,7 @@ import {
 } from "./../styles/otp";
 
 interface OtpPopupProps {
-  onSubmit: () => void; // called only when OTP is valid
+  onSubmit: () => void; 
 }
 
 const DEFAULT_OTP = "1234";

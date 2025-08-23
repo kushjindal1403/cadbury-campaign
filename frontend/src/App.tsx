@@ -4,7 +4,6 @@ import Header from "./components/header";
 import bgImage from "./assets/UI Images/BG.jpg";
 import loaderGif from "./assets/UI Images/Cadbury_s_FreeTheJoy_Advert_2017 (1).gif"
 
-// Lazy load pages
 const LandingPage = lazy(() => import("./pages/LandingPage"));
 const RegistrationPage = lazy(() => import("./pages/Registration"));
 const DetailsPage = lazy(() => import("./pages/DetailsPage"));

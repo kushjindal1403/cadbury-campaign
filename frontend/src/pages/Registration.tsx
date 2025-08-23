@@ -68,7 +68,6 @@ const RegistrationPage = () => {
         if (validate()) setShowOtp(true);
     };
 
-    // No OTP param here, OTP is already validated inside OtpPopup
     const handleOtpSubmit = async () => {
         try {
             const response = await fetch("https://cadbury-campaign.onrender.com/api/register", {
