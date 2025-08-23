@@ -64,7 +64,7 @@ const SelectionPage = () => {
             setLoading(true);
             console.log("Sending data to backend:", { details, selections: selectedOptions });
             const response = await axios.post<LyricsResponse>(
-                "http://localhost:5000/api/generate-lyrics",
+                "https://cadbury-campaign.onrender.com/api/generate-lyrics",
                 { details, selections: selectedOptions }
             );
 

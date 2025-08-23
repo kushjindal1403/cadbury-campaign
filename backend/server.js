@@ -6,7 +6,9 @@ import { OpenAI } from "openai";
 
 dotenv.config();
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: "https://cadbury-campaign-jheg.vercel.app/"
+}));
 app.use(express.json());
 
 const db = mysql.createPool({
