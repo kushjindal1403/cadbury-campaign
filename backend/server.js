@@ -81,5 +81,30 @@ The lyrics generated should be completely unique and never written before every 
   }
 });
 
+app.get("/test-db", ( res) => {
+  db.query("SELECT 1", (err, results) => {
+    if (err) {
+      console.error("DB connection error:", err);
+      return res.status(500).json({ error: "Database connection failed" });
+    }
+    res.json({ success: true, results });
+  });
+});
+
+app.get("/test-openai", async ( res) => {
+  try {
+    const response = await openai.chat.completions.create({
+      model: "gpt-4.1-mini",
+      messages: [{ role: "user", content: "Hello from test-openai" }],
+      max_tokens: 10,
+    });
+    res.json({ reply: response.choices[0].message.content });
+  } catch (error) {
+    console.error("OpenAI error:", error);
+    res.status(500).json({ error: "OpenAI request failed" });
+  }
+});
+
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
