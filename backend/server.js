@@ -6,7 +6,28 @@ import { OpenAI } from "openai";
 
 dotenv.config();
 const app = express();
-app.use(cors());
+import cors from "cors";
+
+const allowedOrigins = [
+  "https://cadbury-campaign-jheg.vercel.app",
+  "http://localhost:3000"
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      return callback(new Error('Not allowed by CORS'), false);
+    }
+    return callback(null, true);
+  },
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+}));
+
+app.options("*", cors()); // enable preflight
+
 app.use(express.json());
 
 const db = mysql.createPool({
