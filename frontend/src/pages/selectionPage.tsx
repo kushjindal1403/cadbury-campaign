@@ -68,6 +68,7 @@ const SelectionPage = () => {
                 { details, selections: selectedOptions }
             );
 
+
             const lyrics = response.data.lyrics;
 
             localStorage.setItem("generatedLyrics", lyrics);

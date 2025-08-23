@@ -6,9 +6,7 @@ import { OpenAI } from "openai";
 
 dotenv.config();
 const app = express();
-app.use(cors({
-  origin: "https://cadbury-campaign-jheg.vercel.app/"
-}));
+app.use(cors());
 app.use(express.json());
 
 const db = mysql.createPool({
@@ -19,7 +17,7 @@ const db = mysql.createPool({
 });
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: process.env.OPENAI_API_KEY || "",
 });
 
 app.get("/", (req, res) => {
@@ -43,8 +41,11 @@ app.post("/api/register", (req, res) => {
 
 app.post("/api/generate-lyrics", async (req, res) => {
   try {
+    console.log("Received /api/generate-lyrics request body:", req.body);
+
     const { details, selections } = req.body;
     if (!details || !selections) {
+      console.error("Missing details or selections in request body");
       return res
         .status(400)
         .json({ error: "Details and selections are required." });
@@ -60,6 +61,8 @@ Using the above information, please write 16 lines of ${selections.genre} lyrics
 The lyrics generated should be completely unique and never written before every single time and should not in any way or manner infringe on any trademarks/copyrights or any other rights of any individual or entity anywhere in the world. Any references or similarity to existing lyrics of any song anywhere in the world needs to be completely avoided. Any mention of proper nouns i.e. names or places of any manner apart from the ones mentioned above needs to be completely avoided. The lyrics generated should not be insensitive or should not offend any person/ place/ caste/ religion/ creed/ tribe/ country/ gender/ government/ organisation or any entity or individual in any manner whatsoever. Any words which might be construed directly or indirectly as cuss words or are offensive in any language should also be completely avoided.
 `;
 
+    console.log("Prompt to OpenAI:", prompt);
+
     const response = await openai.chat.completions.create({
       model: "gpt-4.1-mini",
       messages: [
@@ -73,13 +76,17 @@ The lyrics generated should be completely unique and never written before every 
       temperature: 0.8,
     });
 
+    console.log("OpenAI response:", response);
+
     const lyrics = response.choices[0].message.content;
 
     res.json({ lyrics });
   } catch (error) {
-    res.status(500).json({ error: "Failed to generate lyrics." });
+    console.error("Error in /api/generate-lyrics:", error);
+    res.status(500).json({ error: "Failed to generate lyrics.", details: error.message });
   }
 });
+
 
 app.get("/test-db", ( res) => {
   db.query("SELECT 1", (err, results) => {
