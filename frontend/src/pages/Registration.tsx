@@ -71,7 +71,7 @@ const RegistrationPage = () => {
     // No OTP param here, OTP is already validated inside OtpPopup
     const handleOtpSubmit = async () => {
         try {
-            const response = await fetch("http://localhost:5000/api/register", {
+            const response = await fetch("https://cadbury-campaign.onrender.com/api/register", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
