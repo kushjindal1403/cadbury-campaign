@@ -6,7 +6,6 @@ import { OpenAI } from "openai";
 
 dotenv.config();
 const app = express();
-import cors from "cors";
 
 const allowedOrigins = [
   "https://cadbury-campaign-jheg.vercel.app",
