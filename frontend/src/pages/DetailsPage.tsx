@@ -94,8 +94,16 @@ const DetailsPage = () => {
             const data = await response.json();
 
             if (data.success) {
-                console.log("Details saved:", data);
-                navigate("/selector", { state: { email: state.email } });
+                navigate("/selector", {
+                    state: {
+                        details: {
+                            fullName: formData.fullName,
+                            age: formData.age,
+                            gender: formData.gender
+                        },
+                        email: state.email
+                    }
+                });
             } else {
                 console.error("Error saving details:", data);
             }

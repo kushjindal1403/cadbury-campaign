@@ -37,11 +37,14 @@ const SelectionPage = () => {
 
     
     const details = location.state?.details;
-    if (!details) {
-        
-        navigate("/details");
-    }
+   
 
+    useEffect(() => {
+        if (!details) {
+            navigate("/details");
+        }
+    }, [details, navigate]);
+    
     const handleSelect = (categoryTitle: string, value: string) => {
         setSelectedOptions((prev) => ({
             ...prev,
