@@ -49,7 +49,7 @@ function App() {
         backgroundImage: `url(${bgImage})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
-        
+        minHeight: "100vh",
         zIndex: 0,
       }}
     >

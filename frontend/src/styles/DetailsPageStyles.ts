@@ -52,8 +52,22 @@ export const formStyle: CSSProperties = {
     alignItems: "center",
 };
 
+
+export const buttonStyle: CSSProperties = {
+    width: "40%",
+    padding: "1rem",
+    backgroundColor: "#B9861F",
+    color: "black",
+    border: "none",
+    borderRadius: "10px",
+    fontWeight: "bold",
+    cursor: "pointer",
+    fontSize: "1rem",
+    marginTop: "1rem",
+};
+
 export const inputStyle: CSSProperties = {
-    width: "90%",
+    width: "100%",  
     padding: "1rem",
     marginBottom: "0.5rem",
     borderRadius: "25px",
@@ -63,33 +77,18 @@ export const inputStyle: CSSProperties = {
     backgroundColor: "white",
     WebkitAppearance: "none" as any,
     MozAppearance: "none" as any,
+    boxSizing: "border-box", 
 };
 
-export const buttonStyle: CSSProperties = {
-    width: "60%",
-    padding: "1rem",
-    backgroundColor: "#B9861F",
-    color: "#fff",
-    border: "none",
-    borderRadius: "25px",
-    fontWeight: "bold",
-    cursor: "pointer",
-    fontSize: "1rem",
-    marginTop: "1rem",
-};
-
-export const selectStyle: React.CSSProperties = {
+export const selectStyle: CSSProperties = {
     ...inputStyle,
-    appearance: "none",
-    WebkitAppearance: "none",
-    MozAppearance: "none",
     backgroundImage: `url("data:image/svg+xml;utf8,<svg fill='%23B9861F' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>")`,
     backgroundRepeat: "no-repeat",
-    backgroundPosition: "right 10px center",
+    backgroundPosition: "right 15px center",
     backgroundSize: "40px 40px",
-    paddingRight: "30px",
-    cursor: "pointer",
+    paddingRight: "2.5rem",
 };
+
 
 export const labelStyle: CSSProperties = {
     alignSelf: "center",

@@ -31,9 +31,17 @@ const RegistrationPage = () => {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value, type, checked } = e.target;
+        let newValue = value;
+
+        if (name === "phone") {
+            newValue = value.replace(/\D/g, "").slice(0, 10);
+        }
+        if (name === "fullName") {
+            newValue = value.replace(/[^a-zA-Z\s]/g, "").slice(0, 50);
+        }
         setFormData((prev) => ({
             ...prev,
-            [name]: type === "radio" || type === "checkbox" ? checked : value,
+            [name]: type === "radio" || type === "checkbox" ? checked : newValue,
         }));
         setErrors((prev) => ({ ...prev, [name]: "" }));
     };
@@ -104,6 +112,17 @@ const RegistrationPage = () => {
 
             <div style={formWrapperStyle}>
                 <form style={formStyle} onSubmit={handleSubmit}>
+                   
+                    <input
+                        type="tel"
+                        name="phone"
+                        placeholder="Phone Number"
+                        style={inputStyle}
+                        value={formData.phone}
+                        onChange={handleChange}
+                        
+                    />
+                    {errors.phone && <span style={errorStyle}>{errors.phone}</span>}
                     <input
                         type="text"
                         name="fullName"
@@ -111,23 +130,14 @@ const RegistrationPage = () => {
                         style={inputStyle}
                         value={formData.fullName}
                         onChange={handleChange}
+                        maxLength={25}
                     />
                     {errors.fullName && <span style={errorStyle}>{errors.fullName}</span>}
 
                     <input
-                        type="tel"
-                        name="phone"
-                        placeholder="Phone"
-                        style={inputStyle}
-                        value={formData.phone}
-                        onChange={handleChange}
-                    />
-                    {errors.phone && <span style={errorStyle}>{errors.phone}</span>}
-
-                    <input
                         type="email"
                         name="email"
-                        placeholder="Email"
+                        placeholder="Email ID"
                         style={inputStyle}
                         value={formData.email}
                         onChange={handleChange}

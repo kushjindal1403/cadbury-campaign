@@ -9,6 +9,7 @@ export const containerStyle: CSSProperties = {
     padding: "2rem",
     overflow: "hidden",
     zIndex: 0,
+    height: "100%"
 };
 
 export const progressStyle: CSSProperties = {
@@ -67,12 +68,12 @@ export const radioLabelStyle: CSSProperties = {
 };
 
 export const buttonStyle: CSSProperties = {
-    width: "60%",
+    width: "40%",
     padding: "1rem",
     backgroundColor: "#B9861F",
-    color: "#fff",
+    color: "black",
     border: "none",
-    borderRadius: "25px",
+    borderRadius: "10px",
     fontWeight: "bold",
     cursor: "pointer",
     fontSize: "1rem",

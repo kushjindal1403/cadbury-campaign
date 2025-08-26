@@ -110,7 +110,7 @@ const SelectionPage = () => {
                         ref={idx === categories.length - 1 ? lastCategoryRef : null}
                         style={{
                             marginBottom: "2rem",
-                            opacity: idx === categories.length - 1 ? (lastVisible ? 0.5 : 0) : 1,
+                            opacity: idx === categories.length - 1 ? (lastVisible ? 1 : 0) : 1,
                             transition: "opacity 0.3s ease",
                         }}
                     >

@@ -93,10 +93,11 @@ const DetailsPage = () => {
                     <input
                         type="text"
                         name="fullName"
-                        placeholder="xxxxx xxxxxxxxxxxx"
+                        placeholder="xxxxx xxxxxxxxxx"
                         style={inputStyle}
                         value={formData.fullName}
                         onChange={handleChange}
+                        max={25}
                     />
                     {errors.fullName && <span style={errorStyle}>{errors.fullName}</span>}
 

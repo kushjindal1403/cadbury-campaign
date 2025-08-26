@@ -108,7 +108,7 @@ const PlayPage = () => {
             </div>
 
             <button style={buttonStyle} onClick={handlePlayClick}>
-                {speaking ? "Stop Playing" : "Play Song"}
+                {speaking ? "STOP PLAYING" : "PLAY SONG"}
             </button>
         </div>
     );

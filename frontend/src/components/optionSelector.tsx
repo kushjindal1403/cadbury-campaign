@@ -57,6 +57,7 @@ const OptionSelector: React.FC<OptionSelectorProps> = ({
   selected,
   onSelect,
 }) => {
+  
   return (
     <OptionSelectorErrorBoundary>
       <div style={containerStyle}>
@@ -64,6 +65,9 @@ const OptionSelector: React.FC<OptionSelectorProps> = ({
         <div style={optionsContainerStyle}>
           {options.map((item, index) => {
             const isSelected = selected === item.label;
+            const isSquare = item.label === "Male" || item.label === "Female";
+
+            
 
             return (
               <div
@@ -78,7 +82,7 @@ const OptionSelector: React.FC<OptionSelectorProps> = ({
                   }
                 }}
               >
-                <div style={imageContainerStyle(isSelected)}>
+                <div style={imageContainerStyle(isSelected, isSquare)}>
                   <img src={item.image} alt={item.label} style={imageStyle} />
                 </div>
                 <p style={labelStyle}>{item.label}</p>

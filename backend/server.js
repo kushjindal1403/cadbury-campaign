@@ -25,7 +25,8 @@ app.use(cors({
   credentials: true,
 }));
 
-app.options("*", cors());
+app.options(/.*/, cors());
+
 
 app.use(express.json());
 
@@ -108,7 +109,7 @@ The lyrics generated should be completely unique and never written before every 
 });
 
 
-app.get("/test-db", ( res) => {
+app.get("/test-db", (req, res) => {
   db.query("SELECT 1", (err, results) => {
     if (err) {
       console.error("DB connection error:", err);
@@ -117,6 +118,7 @@ app.get("/test-db", ( res) => {
     res.json({ success: true, results });
   });
 });
+
 
 app.get("/test-openai", async (_req, res) => {
   try {

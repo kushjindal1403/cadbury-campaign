@@ -21,12 +21,13 @@ export const containerStyle: CSSProperties = {
     flexDirection: "column",
     alignItems: "center",
     gap: "1rem",
-    minWidth: "300px",
+    minWidth: "250px",
 };
 
 export const headingStyle: CSSProperties = {
     color: "#3C0063",
     fontSize: "30px",
+    marginBottom: "10px"
 };
 
 export const inputContainerStyle: CSSProperties = {
@@ -62,11 +63,11 @@ export const buttonContainerStyle: CSSProperties = {
 };
 
 export const submitButtonStyle: CSSProperties = {
-    padding: "0.8rem 2rem",
+    padding: "1rem 3rem",
     backgroundColor: "#B9861F",
-    color: "white",
+    color: "black",
     border: "none",
-    borderRadius: "25px",
+    borderRadius: "10px",
     fontWeight: "bold",
     cursor: "pointer",
 };

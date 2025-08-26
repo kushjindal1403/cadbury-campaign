@@ -11,7 +11,7 @@ export const containerStyle: CSSProperties = {
 export const headerStyle: CSSProperties = {
     textAlign: "center",
     backgroundColor: "#B9861F",
-    color: "#fff",
+    color: "black",
     fontWeight: "bold",
     fontSize: "1.1rem",
     borderRadius: "1rem",
@@ -37,11 +37,11 @@ export const optionItemStyle = (isSelected: boolean): CSSProperties => ({
     opacity: 1,
 });
 
-export const imageContainerStyle = (isSelected: boolean): CSSProperties => ({
+export const imageContainerStyle = (isSelected: boolean, isSquare: boolean): CSSProperties => ({
     width: "40px",
     height: "40px",
-    borderRadius: "50%",
-    overflow: "hidden",
+    borderRadius: isSquare ? "0.5rem" : "50%", 
+    backgroundColor: "white",
     border: `2px solid ${isSelected ? "#B9861F" : "white"}`,
     display: "flex",
     alignItems: "center",
