@@ -68,6 +68,37 @@ app.post("/api/register", (req: Request, res: Response) => {
   });
 });
 
+app.post("/api/save-details", (req: Request, res: Response) => {
+  const { email, fullName, age, gender } = req.body as {
+    email: string;
+    fullName: string;
+    age: number;
+    gender: string;
+  };
+
+  if (!email || !fullName || !age || !gender) {
+    return res.status(400).json({ error: "All fields are required." });
+  }
+
+  db.query("SELECT id FROM users WHERE email = ?", [email], (err, results) => {
+    if (err) return res.status(500).json({ error: err.message });
+
+    const rows = results as RowDataPacket[];
+    if (rows.length === 0)
+      return res.status(404).json({ error: "User not found" });
+
+    const userId = rows[0].id;
+
+    const sql =
+      "UPDATE users SET fullName = ?, age = ?, gender = ? WHERE id = ?";
+    db.query(sql, [fullName, age, gender, userId], (err2) => {
+      if (err2) return res.status(500).json({ error: err2.message });
+      res.json({ success: true, message: "Details saved!" });
+    });
+  });
+});
+
+
 app.post("/api/save-selections", (req: Request, res: Response) => {
   const { email, selections } = req.body as {
     email: string;

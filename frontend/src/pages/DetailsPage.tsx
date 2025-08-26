@@ -75,12 +75,35 @@ const DetailsPage = () => {
         return valid;
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (validate()) {
-            navigate("/selector", { state: { details: formData , email: state.email} });
+        if (!validate()) return;
+
+        try {
+            const response = await fetch("https://cadbury-campaign.onrender.com/api/save-details", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    email: state.email, 
+                    fullName: formData.fullName,
+                    age: Number(formData.age),
+                    gender: formData.gender,
+                }),
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                console.log("Details saved:", data);
+                navigate("/selector", { state: { email: state.email } });
+            } else {
+                console.error("Error saving details:", data);
+            }
+        } catch (err) {
+            console.error("Request failed:", err);
         }
     };
+
 
    
 
