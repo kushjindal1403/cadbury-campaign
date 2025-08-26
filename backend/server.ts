@@ -69,21 +69,21 @@ app.post("/api/register", (req: Request, res: Response) => {
 });
 
 app.post("/api/save-details", (req: Request, res: Response) => {
-  const { userEmail, fullName, age, gender } = req.body as {
-    userEmail: string;
+  const { email, fullName, age, gender } = req.body as {
+    email: string;
     fullName: string;
     age: number;
     gender: string;
   };
 
-  if (!userEmail || !fullName || !age || !gender) {
+  if (!email || !fullName || !age || !gender) {
     return res.status(400).json({ error: "All fields are required." });
   }
 
   const sql =
     "INSERT INTO details (user_email, full_name, age, gender) VALUES (?, ?, ?, ?)";
 
-  db.query(sql, [userEmail, fullName, age, gender], (err) => {
+  db.query(sql, [email, fullName, age, gender], (err) => {
     if (err) return res.status(500).json({ error: err.message });
     res.json({ success: true, message: "Loved one details saved!" });
   });
