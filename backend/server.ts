@@ -69,32 +69,23 @@ app.post("/api/register", (req: Request, res: Response) => {
 });
 
 app.post("/api/save-details", (req: Request, res: Response) => {
-  const { email, fullName, age, gender } = req.body as {
-    email: string;
+  const { userEmail, fullName, age, gender } = req.body as {
+    userEmail: string;
     fullName: string;
     age: number;
     gender: string;
   };
 
-  if (!email || !fullName || !age || !gender) {
+  if (!userEmail || !fullName || !age || !gender) {
     return res.status(400).json({ error: "All fields are required." });
   }
 
-  db.query("SELECT id FROM users WHERE email = ?", [email], (err, results) => {
+  const sql =
+    "INSERT INTO details (user_email, full_name, age, gender) VALUES (?, ?, ?, ?)";
+
+  db.query(sql, [userEmail, fullName, age, gender], (err) => {
     if (err) return res.status(500).json({ error: err.message });
-
-    const rows = results as RowDataPacket[];
-    if (rows.length === 0)
-      return res.status(404).json({ error: "User not found" });
-
-    const userId = rows[0].id;
-
-    const sql =
-      "UPDATE users SET fullName = ?, age = ?, gender = ? WHERE id = ?";
-    db.query(sql, [fullName, age, gender, userId], (err2) => {
-      if (err2) return res.status(500).json({ error: err2.message });
-      res.json({ success: true, message: "Details saved!" });
-    });
+    res.json({ success: true, message: "Loved one details saved!" });
   });
 });
 
