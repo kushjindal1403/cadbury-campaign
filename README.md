@@ -1,39 +1,29 @@
-Sure! Here's a clear, minimal setup including:
-
----
-
-### ✅ `README.md`
-
-### ✅ `db.sql` — SQL file to initialize your `users` table
-
----
-
-## ✅ 1. `README.md`
-
-````markdown
 # 🎂 Cadbury Campaign - Birthday Lyrics Generator 🎶
 
-A simple Node.js + Express backend that registers user info and generates unique birthday song lyrics using OpenAI's GPT API.
+A full-stack project to create personalized birthday songs. Users can enter their loved one's details, select song preferences, and generate unique birthday lyrics using OpenAI's GPT API.
 
 ---
 
 ## 🚀 Features
 
 - Register users with `name`, `email`, `phone`, `privacy`
-- Generate unique birthday lyrics using OpenAI
+- Save loved one’s details (name, age, gender)
+- Save user-selected song customizations (genre, mood, singer's voice)
+- Generate unique birthday lyrics using OpenAI GPT
+- Responsive frontend with selection pages and preview
 - MySQL database connection
-- Deployed on Render
+- Deployed backend on Render, frontend on Vercel
 
 ---
 
 ## 🛠️ Technologies
 
-- Node.js
-- Express.js
-- MySQL (freesqldatabase.com or any remote host)
-- OpenAI GPT-4.0/4.1
-- CORS for frontend compatibility
-- Deployed with Render (Backend) and Vercel (Frontend)
+- **Frontend:** React, TypeScript, TailwindCSS  
+- **Backend:** Node.js, Express.js, TypeScript  
+- **Database:** MySQL  
+- **AI:** OpenAI GPT-4.1-mini  
+- **Deployment:** Render (Backend), Vercel (Frontend)  
+- **Other:** Axios, React Router, CORS, dotenv
 
 ---
 
@@ -50,25 +40,57 @@ Registers a new user.
   "email": "john@example.com",
   "privacy": true
 }
-````
+```
+
+---
+
+### `POST /api/save-details`
+Saves loved one’s details.
+
+**Body:**
+```json
+{
+  "email": "john@example.com",
+  "fullName": "Jane Doe",
+  "age": 25,
+  "gender": "female"
+}
+```
+
+---
+
+### `POST /api/save-selections`
+Saves song customization selections.
+
+**Body:**
+```json
+{
+  "email": "john@example.com",
+  "selections": {
+    "Genre": "Pop",
+    "Mood": "Happy",
+    "Singer's Voice": "Female"
+  }
+}
+```
 
 ---
 
 ### `POST /api/generate-lyrics`
-
-Generates birthday lyrics based on user details and selected genre.
+Generates birthday lyrics based on user details and selections.
 
 **Body:**
-
 ```json
 {
   "details": {
-    "fullName": "John",
-    "age": "25",
-    "gender": "male"
+    "fullName": "Jane",
+    "age": 25,
+    "gender": "female"
   },
   "selections": {
-    "genre": "Rock"
+    "Genre": "Pop",
+    "Mood": "Happy",
+    "Singer's Voice": "Female"
   }
 }
 ```
@@ -77,83 +99,85 @@ Generates birthday lyrics based on user details and selected genre.
 
 ## 📦 Setup
 
-1. Clone the repo
+1. Clone the repo:
 
-   ```bash
-   git clone https://github.com/your-username/cadbury-campaign.git
-   cd cadbury-campaign/backend
-   ```
+```bash
+git clone https://github.com/your-username/cadbury-campaign.git
+cd cadbury-campaign/backend
+```
 
-2. Install dependencies
+2. Install dependencies:
 
-   ```bash
-   npm install
-   ```
+```bash
+npm install
+```
 
 3. Create a `.env` file:
 
-   ```
-   PORT=5000
-   DB_HOST=your_mysql_host
-   DB_USER=your_mysql_user
-   DB_PASSWORD=your_mysql_password
-   DB_NAME=your_db_name
-   OPENAI_API_KEY=your_openai_key
-   ```
+```
+PORT=5000
+DB_HOST=your_mysql_host
+DB_USER=your_mysql_user
+DB_PASSWORD=your_mysql_password
+DB_NAME=your_db_name
+OPENAI_API_KEY=your_openai_key
+```
 
 4. Run the server:
 
-   ```bash
-   npm start
-   ```
+```bash
+npm run dev
+```
 
 ---
 
 ## 🗄️ MySQL Setup
 
-Run the following SQL to create the `users` table:
+Run the following SQL to create the required tables:
 
-See `db.sql` below.
+```sql
+-- Users Table
+CREATE TABLE IF NOT EXISTS users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  fullName VARCHAR(255) NOT NULL,
+  phone VARCHAR(20) NOT NULL,
+  email VARCHAR(255) NOT NULL UNIQUE,
+  privacy BOOLEAN NOT NULL DEFAULT TRUE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Loved One Details Table
+CREATE TABLE IF NOT EXISTS details (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_email VARCHAR(255) NOT NULL,
+  full_name VARCHAR(255) NOT NULL,
+  age INT NOT NULL,
+  gender VARCHAR(10) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Song Selections Table
+CREATE TABLE IF NOT EXISTS selections (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  genre VARCHAR(50),
+  mood VARCHAR(50),
+  singer_voice VARCHAR(50),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+```
 
 ---
 
 ## 🌐 Deployment
 
-* Backend deployed on **Render**
-* Frontend deployed on **Vercel**
-* Ensure both are allowed in CORS config.
+- Backend deployed on **Render**  
+- Frontend deployed on **Vercel**  
+- Make sure both frontend and backend URLs are added to the CORS whitelist
 
 ---
 
 ## 📄 License
 
 MIT – Use it freely!
-
-````
-
----
-
-## ✅ 2. `db.sql`
-
-```sql
--- db.sql
-
-CREATE TABLE IF NOT EXISTS users (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  fullName VARCHAR(255) NOT NULL,
-  phone VARCHAR(20) NOT NULL,
-  email VARCHAR(255) NOT NULL,
-  privacy BOOLEAN NOT NULL DEFAULT TRUE,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-````
-
----
-
-### ✅ Final Notes
-
-* Put `db.sql` in your root or backend folder for quick DB setup.
-* Don't forget to `.gitignore` your `.env` file.
-* Avoid committing secrets (e.g., OpenAI keys) — GitHub will block them.
-
-Let me know if you want the **frontend `README`** too!
