@@ -51,7 +51,7 @@ const SelectionPage = () => {
     };
 
     const handleProceed = async () => {
-       
+        const email = location.state?.email;
         const missingGenre = categories.find(
             (c) => c.title === "Genre" && !selectedOptions[c.title]
         );
@@ -63,25 +63,35 @@ const SelectionPage = () => {
         try {
             setLoading(true);
             console.log("Sending data to backend:", { details, selections: selectedOptions });
+
+
             const response = await axios.post<LyricsResponse>(
                 "https://cadbury-campaign.onrender.com/api/generate-lyrics",
                 { details, selections: selectedOptions }
             );
 
-
             const lyrics = response.data.lyrics;
-
             localStorage.setItem("generatedLyrics", lyrics);
+
+
+            await axios.post(
+                "https://cadbury-campaign.onrender.com/api/save-selections",
+                {
+                    email,
+                    selections: selectedOptions
+                }
+            );
 
             navigate("/play", { state: { lyrics, singerVoice: selectedOptions["Singer's Voice"] || "Male" } });
 
         } catch (err) {
             console.error(err);
-            setError("Failed to generate lyrics. Please try again.");
+            setError("Failed to generate lyrics or save selections. Please try again.");
         } finally {
             setLoading(false);
         }
     };
+
 
     useEffect(() => {
         const observer = new IntersectionObserver(

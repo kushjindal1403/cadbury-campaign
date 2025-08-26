@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import progressBar1 from "./../assets/UI Images/progress bar1.png";
 import DetailsPageImage from "./../assets/UI Images/Cap&Gift.png";
 import bottomLeftImage from "./../assets/UI Images/Purple tone.png";
@@ -22,7 +22,15 @@ import {
     bottomLeftStyle,
 } from "./../styles/DetailsPageStyles";
 
+interface DetailsPageLocationState {
+    email: string;
+}
+
+
 const DetailsPage = () => {
+    const location = useLocation();
+
+    const state = location.state as DetailsPageLocationState;
     const ageOptions = Array.from({ length: 120 }, (_, i) => i + 1);
     const navigate = useNavigate();
 
@@ -70,7 +78,7 @@ const DetailsPage = () => {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (validate()) {
-            navigate("/selector", { state: { details: formData } });
+            navigate("/selector", { state: { details: formData , email: state.email} });
         }
     };
 

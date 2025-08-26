@@ -1,7 +1,8 @@
 import express, { Request, Response } from "express";
-import mysql, { Pool } from "mysql2";
+import mysql, { OkPacket, Pool } from "mysql2";
 import cors, { CorsOptions } from "cors";
 import dotenv from "dotenv";
+import { RowDataPacket } from "mysql2";
 import { OpenAI } from "openai";
 
 dotenv.config();
@@ -66,6 +67,36 @@ app.post("/api/register", (req: Request, res: Response) => {
     res.json({ success: true, message: "User registered successfully!" });
   });
 });
+
+app.post("/api/save-selections", (req: Request, res: Response) => {
+  const { email, selections } = req.body as {
+    email: string;
+    selections: Record<string, string>;
+  };
+
+  if (!email || !selections) {
+    return res.status(400).json({ error: "Email and selections are required" });
+  }
+
+  db.query("SELECT id FROM users WHERE email = ?", [email], (err, results) => {
+    if (err) return res.status(500).json({ error: err.message });
+
+    const rows = results as RowDataPacket[];
+    if (rows.length === 0) return res.status(404).json({ error: "User not found" });
+
+    const userId = rows[0].id;
+    const { Genre, "Singer's Voice": singerVoice, Mood: mood } = selections;
+
+    const sql =
+      "INSERT INTO selections (user_id, genre, singer_voice, mood) VALUES (?, ?, ?, ?)";
+
+    db.query(sql, [userId, Genre || null, singerVoice || null, mood || null], (err2) => {
+      if (err2) return res.status(500).json({ error: err2.message });
+      res.json({ success: true, message: "Selections saved!" });
+    });
+  });
+});
+
 
 app.post("/api/generate-lyrics", async (req: Request, res: Response) => {
   try {

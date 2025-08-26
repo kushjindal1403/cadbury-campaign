@@ -92,7 +92,7 @@ const RegistrationPage = () => {
             if (data.success) {
                 alert("Registration successful!");
                 setShowOtp(false);
-                navigate("/details");
+                navigate("/details",{ state: { email: formData.email }});
             } else {
                 alert(data.error || "Something went wrong");
             }
