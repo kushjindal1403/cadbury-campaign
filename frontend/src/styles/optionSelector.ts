@@ -37,20 +37,26 @@ export const optionItemStyle = (isSelected: boolean): CSSProperties => ({
     opacity: 1,
 });
 
-export const imageContainerStyle = (isSelected: boolean, isSquare: boolean): CSSProperties => ({
-    width: "40px",
-    height: "40px",
-    borderRadius: isSquare ? "0.5rem" : "50%", 
-    backgroundColor: "white",
+export const imageContainerStyle = (
+    isSelected: boolean,
+    isSquare: boolean
+): CSSProperties => ({
+    width: isSquare ? "80px" : "40px",
+    height: isSquare ? "70px" : "40px",
+    borderRadius: isSquare ? "0.5rem" : "50%",
+    backgroundColor: isSelected ? "#B9861F" : "white",
     border: `2px solid ${isSelected ? "#B9861F" : "white"}`,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    filter: isSelected ? "drop-shadow(0px 0px 4px #B9861F)" : "none",
 });
+
 
 export const imageStyle: CSSProperties = {
     width: "100%",
     height: "100%",
+    mixBlendMode: "multiply"
 };
 
 export const labelStyle: CSSProperties = {

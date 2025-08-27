@@ -27,7 +27,6 @@ export const labelStyle: CSSProperties = {
 export const lyricsBoxStyle: CSSProperties = {
     width: "100%",
     maxWidth: "400px",
-    height: "100vh",
     overflowY: "auto",
     backgroundColor: "white",
     padding: "1rem",
