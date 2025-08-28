@@ -44,8 +44,10 @@ export const imageContainerStyle = (
     width: isSquare ? "80px" : "40px",
     height: isSquare ? "50px" : "40px",
     borderRadius: isSquare ? "0.5rem" : "50%",
-    backgroundColor: isSelected ? "#B9861F" : "white",
-    border: `2px solid ${isSelected ? "#B9861F" : "white"}`,
+    backgroundColor: isSquare
+        ? (isSelected ? "#B9861F" : "transparent")  
+        : (isSelected ? "#B9861F" : "white"), 
+    border: !isSquare ? `2px solid ${isSelected ? "#B9861F" : "white"}` : "none",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
