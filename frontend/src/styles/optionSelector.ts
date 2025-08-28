@@ -2,7 +2,7 @@ import { CSSProperties } from "react";
 
 export const containerStyle: CSSProperties = {
     width: "100%",
-    maxWidth: "400px",
+    maxWidth: "350px",
     margin: "0 auto",
     border: "2px solid #B9861F",
     borderRadius: "1rem",
@@ -14,7 +14,8 @@ export const headerStyle: CSSProperties = {
     color: "black",
     fontWeight: "bold",
     fontSize: "1.1rem",
-    borderRadius: "1rem",
+    borderTopLeftRadius: "1rem",
+    borderTopRightRadius: "1rem",
     marginBottom: "1rem",
 };
 
@@ -31,7 +32,6 @@ export const optionItemStyle = (isSelected: boolean): CSSProperties => ({
     alignItems: "center",
     cursor: "pointer",
     borderRadius: "0.5rem",
-    border: isSelected ? "2px solid yellow" : "2px solid transparent",
     transform: isSelected ? "scale(1.1)" : "scale(1)",
     transition: "transform 0.2s",
     opacity: 1,
@@ -42,7 +42,7 @@ export const imageContainerStyle = (
     isSquare: boolean
 ): CSSProperties => ({
     width: isSquare ? "80px" : "40px",
-    height: isSquare ? "70px" : "40px",
+    height: isSquare ? "50px" : "40px",
     borderRadius: isSquare ? "0.5rem" : "50%",
     backgroundColor: isSelected ? "#B9861F" : "white",
     border: `2px solid ${isSelected ? "#B9861F" : "white"}`,
